@@ -12,8 +12,15 @@ def view_function():
     for row in bookdata.view_data():
         list1.insert(END,row)
 
+def search_func():
+    list1.delete(0,END)
+    for row in bookdata.search(title_text.get(),author_text.get(),year_text.get(),isbn_text.get()):
+        list1.insert(END,row)
 
-
+def add_func():
+    bookdata.insert_data(title_text.get(),author_text.get(),year_text.get(),isbn_text.get())
+    list1.delete(0,END)
+    list1.insert(END,(title_text.get(),author_text.get(),year_text.get(),isbn_text.get()))
 
 
 window=Tk()
@@ -69,7 +76,7 @@ but1.grid(row=2,column=3)
 but2=Button(window,text='Search Entries',width=16,command=search_func)
 but2.grid(row=3,column=3)
 
-but3=Button(window,text='Add Entry',width=16)
+but3=Button(window,text='Add Entry',width=16,command=add_func)
 but3.grid(row=4,column=3)
 
 but4=Button(window,text='Update Entry',width=16)
