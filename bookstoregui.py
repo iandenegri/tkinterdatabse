@@ -2,8 +2,19 @@
 GUI for a program that stores Title,Author,Year,ISBN
 User can interact with stored data.
 '''
-
+import bookdata
 from tkinter import *
+
+#functions to use on buttons
+
+def view_function():
+    list1.delete(0,END)
+    for row in bookdata.view_data():
+        list1.insert(END,row)
+
+
+
+
 
 window=Tk()
 
@@ -52,10 +63,10 @@ list1.configure(yscrollcommand=scroll1.set)
 scroll1.configure(command=list1.yview)
 
 #Buttons
-but1=Button(window,text='View All',width=16)
+but1=Button(window,text='View All',width=16,command=view_function)
 but1.grid(row=2,column=3)
 
-but2=Button(window,text='Search Entries',width=16)
+but2=Button(window,text='Search Entries',width=16,command=search_func)
 but2.grid(row=3,column=3)
 
 but3=Button(window,text='Add Entry',width=16)
