@@ -6,17 +6,20 @@ import bookdata
 from tkinter import *
 
 def get_selected_row(event):
-    global selected_tuple
-    index=list1.curselection()[0]
-    selected_tuple=list1.get(index)
-    entry1.delete(0,END)
-    entry1.insert(END,selected_tuple[1])
-    entry2.delete(0,END)
-    entry2.insert(END,selected_tuple[2])
-    entry3.delete(0,END)
-    entry3.insert(END,selected_tuple[3])
-    entry4.delete(0,END)
-    entry4.insert(END,selected_tuple[4])
+    try:
+        global selected_tuple
+        index=list1.curselection()[0]
+        selected_tuple=list1.get(index)
+        entry1.delete(0,END)
+        entry1.insert(END,selected_tuple[1])
+        entry2.delete(0,END)
+        entry2.insert(END,selected_tuple[2])
+        entry3.delete(0,END)
+        entry3.insert(END,selected_tuple[3])
+        entry4.delete(0,END)
+        entry4.insert(END,selected_tuple[4])
+    except IndexError:
+        pass
 
 #functions to use on buttons
 
