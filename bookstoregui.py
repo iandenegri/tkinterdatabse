@@ -5,6 +5,19 @@ User can interact with stored data.
 import bookdata
 from tkinter import *
 
+def get_selected_row(event):
+    global selected_tuple
+    index=list1.curselection()[0]
+    selected_tuple=list1.get(index)
+    entry1.delete(0,END)
+    entry1.insert(END,selected_tuple[1])
+    entry2.delete(0,END)
+    entry2.insert(END,selected_tuple[2])
+    entry3.delete(0,END)
+    entry3.insert(END,selected_tuple[3])
+    entry4.delete(0,END)
+    entry4.insert(END,selected_tuple[4])
+
 #functions to use on buttons
 
 def view_function():
@@ -22,8 +35,22 @@ def add_func():
     list1.delete(0,END)
     list1.insert(END,(title_text.get(),author_text.get(),year_text.get(),isbn_text.get()))
 
+def delete_func():
+    bookdata.delete_data(selected_tuple[0])
+    list1.delete(0,END)
+    for row in bookdata.view_data():
+        list1.insert(END,row)
+
+def update_func():
+    bookdata.update_data(selected_tuple[0],title_text.get(),author_text.get(),year_text.get(),isbn_text.get())
+    list1.delete(0,END)
+    for row in bookdata.view_data():
+        list1.insert(END,row)
+
 
 window=Tk()
+
+window.wm_title("Ian's Jank Bookstore")
 
 # Label widgets for the entries
 
@@ -61,6 +88,8 @@ entry4.grid(row=1,column=3)
 list1 = Listbox(window,height=7,width=50)
 list1.grid(row=2,column=0,rowspan=6,columnspan=2)
 
+list1.bind('<<ListboxSelect>>',get_selected_row)
+
 #Scrollbar
 scroll1=Scrollbar(window)
 scroll1.grid(row=2,column=2,rowspan=6)
@@ -79,13 +108,13 @@ but2.grid(row=3,column=3)
 but3=Button(window,text='Add Entry',width=16,command=add_func)
 but3.grid(row=4,column=3)
 
-but4=Button(window,text='Update Entry',width=16)
+but4=Button(window,text='Update Entry',width=16,command=update_func)
 but4.grid(row=5,column=3)
 
-but5=Button(window,text='Delete Entry',width=16)
+but5=Button(window,text='Delete Entry',width=16,command=delete_func)
 but5.grid(row=6,column=3)
 
-but5=Button(window,text='Close Program',width=16)
+but5=Button(window,text='Close Program',width=16,command=window.destroy)
 but5.grid(row=7,column=3)
 
 window.mainloop()
