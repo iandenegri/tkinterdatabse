@@ -2,8 +2,10 @@
 GUI for a program that stores Title,Author,Year,ISBN
 User can interact with stored data.
 '''
-import bookdata
+from bookdata import Database
 from tkinter import *
+
+database=Database('books.db')
 
 def get_selected_row(event):
     try:
@@ -25,29 +27,29 @@ def get_selected_row(event):
 
 def view_function():
     list1.delete(0,END)
-    for row in bookdata.view_data():
+    for row in database.view_data():
         list1.insert(END,row)
 
 def search_func():
     list1.delete(0,END)
-    for row in bookdata.search(title_text.get(),author_text.get(),year_text.get(),isbn_text.get()):
+    for row in database.search(title_text.get(),author_text.get(),year_text.get(),isbn_text.get()):
         list1.insert(END,row)
 
 def add_func():
-    bookdata.insert_data(title_text.get(),author_text.get(),year_text.get(),isbn_text.get())
+    database.insert_data(title_text.get(),author_text.get(),year_text.get(),isbn_text.get())
     list1.delete(0,END)
     list1.insert(END,(title_text.get(),author_text.get(),year_text.get(),isbn_text.get()))
 
 def delete_func():
-    bookdata.delete_data(selected_tuple[0])
+    database.delete_data(selected_tuple[0])
     list1.delete(0,END)
-    for row in bookdata.view_data():
+    for row in database.view_data():
         list1.insert(END,row)
 
 def update_func():
-    bookdata.update_data(selected_tuple[0],title_text.get(),author_text.get(),year_text.get(),isbn_text.get())
+    database.update_data(selected_tuple[0],title_text.get(),author_text.get(),year_text.get(),isbn_text.get())
     list1.delete(0,END)
-    for row in bookdata.view_data():
+    for row in database.view_data():
         list1.insert(END,row)
 
 
